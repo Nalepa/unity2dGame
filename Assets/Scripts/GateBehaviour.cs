@@ -9,6 +9,7 @@ public class GateBehaviour : MonoBehaviour
 {
     TextMeshPro text;
     bool isObject;
+    public GameObject levelMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +40,14 @@ public class GateBehaviour : MonoBehaviour
     {
         if(isObject && Input.GetKey(KeyCode.O))
         {
-            //TODO
+            if(!PlayerPrefs.HasKey("lvl1BestCoins") || PlayerPrefs.GetInt("lvl1BestCoins") < PlayerEquipment.coins)
+            PlayerPrefs.SetInt("lvl1BestCoins", PlayerEquipment.coins);
+            if (!PlayerPrefs.HasKey("lvl1BestTreasures") || PlayerPrefs.GetInt("lvl1BestTreasures") < PlayerEquipment.treasures)
+                PlayerPrefs.SetInt("lvl1BestTreasures", PlayerEquipment.treasures);
+            PlayerPrefs.Save();
             CoinBehaviour.numberOfCoins = 0;
             ChestBehaviour.numerOfChests = 0;
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Menu");
         }
     }
 }

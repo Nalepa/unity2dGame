@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerEquipment : MonoBehaviour
 {
-    int money;
-    int treasures;
+    public static int coins, treasures, levelNumber;
     public GameObject blood, coinsText, treasuresText, gameOverText;
+
     private void Start()
     {
-        coinsText.SendMessage("UpdateText", money);
+        levelNumber = 1;
+        coins = treasures = 0;
+        coinsText.SendMessage("UpdateText", coins);
         treasuresText.SendMessage("UpdateText", treasures);
     }
     void CollectCoin(int value)
     {
-        money += value;
-        Debug.Log("add " + value + " coins. player have " + money + " coins");
-        coinsText.SendMessage("UpdateText", money);
+        coins += value;
+        Debug.Log("add " + value + " coins. player have " + coins + " coins");
+        coinsText.SendMessage("UpdateText", coins);
     }
     void CollectTreasure(int value)
     {
@@ -35,4 +37,5 @@ public class PlayerEquipment : MonoBehaviour
         Destroy(gameObject, 0.1f);
         gameOverText.SendMessage("Display");
     }
+
 }
